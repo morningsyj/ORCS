@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 MCL ORCS
+  p.lead Online Resources Control System for Multimedia Communication Lab
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/logout") Logout
+    br
+    a(href="/request") Request
+    br
+    a(href="/yield") Yield
