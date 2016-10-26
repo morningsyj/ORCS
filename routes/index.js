@@ -3,8 +3,11 @@ var router = express.Router();
 var passport = require('passport');
 var account = require('../models/account');
 var user_request = require('../models/user_request');
-var myutils = require('../myutils');
 var util = require('util');
+
+var time_shift = function(time_oringinal, time_delta) {
+    return new Date(time_oringinal.getTime() + time_delta);
+}
 
 router.get('/', function (req, res) {
     res.render('index', { user : req.user });
