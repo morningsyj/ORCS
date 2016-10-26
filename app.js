@@ -37,10 +37,10 @@ app.use('/', routes);
 // app.use('/users', users);
 
 // passport config
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+var account = require('./models/account');
+passport.use(new LocalStrategy(account.authenticate()));
+passport.serializeUser(account.serializeUser());
+passport.deserializeUser(account.deserializeUser());
 
 // mongoose
 mongoose.connect('mongodb://localhost/orcs_db');

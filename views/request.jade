@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container
+    h1 Request Page
+    p lead Say something worthwhile here.
+    br
+    form(role='form', action="/login",method="post", style='max-width: 500px;')
+      .form-group
+          input.form-control(type='text', name="username", placeholder='Enter Username')
+      .form-group
+        span#datetimepicker1.input-group.date
+          input.form-control(type='text', name="start_time", placeholder='Enter Start Time')
+          .input-group-addon
+            span.glyphicon.glyphicon-calendar
+      script(type="text/javascript").
+        $(function () {
+          $('#datetimepicker1').datetimepicker();
+        });
+      .form-group
+          input.form-control(type='text', name="duration", placeholder='Enter Duration (in hours)')
+      .form-group
+          input.form-control(type='text', name="gpu", placeholder='Enter GPU')
+      button.btn.btn-default(type='submit') Submit
+      a.btn.btn-primary(href='/', role='button') Cancel
+      

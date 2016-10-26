@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var Account = require('../models/account');
+var account = require('../models/account');
+var user_request = require('../models/user_request');
+var myutils = require('../myutils');
 var util = require('util');
 
 router.get('/', function (req, res) {
@@ -13,7 +15,7 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    account.register(new account({ username : req.body.username }), req.body.password, function(err, account) {
         if (err) {
             return res.render('register', { account : account });
         }
@@ -37,12 +39,41 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+router.get('/request', function(req, res) {
+    res.render('request');
+});
+
+router.post('/request', function(req, res) {
+    if (req.user === undefined) {
+        res.send("unautherized request!");
+    }
+    var start_time = new Date(req.body.start_time);
+    var duration = parseInt(req.body.duration) * 3600;
+    var end_time = myutils.time_shift(start_time, duration);
+    var gpu = parseInt(req.body.gpu);
+    var request = new user_request({ 
+        username: req.user, 
+        start_time: start_time, 
+        end_time: end_time, 
+        duration: duration, 
+        gpu: gpu 
+    });
+    request.save(function(err, request) {
+        if (err) {
+            console.log(err);
+            return res.send("Error creating request:\n" + request.toString());
+        }
+        res.redirect('/');
+    });
+});
+
 router.get('/ping', function(req, res){
     res.status(200).send("pong!");
 });
 
 router.get('/request', function(req, res){
-    if (typeof req.user != 'undefined') {
+    console.log(req.user);
+    if (req.user !== undefined) {
         var exec = require('child_process').exec;
         var cmd = util.format('echo \"sudo ./scripts/grant.sh %s\"', req.user.username);
 
