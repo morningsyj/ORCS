@@ -9,4 +9,5 @@ var user_request = new Schema({
     gpu: Number
 });
 
-module.exports = mongoose.model('user_requests', user_request);
+mongoose.model('user_request', user_request);
+mongoose.connect('mongodb://localhost/orcs_db');

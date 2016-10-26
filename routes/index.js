@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var account = mongoose.model('user');
+var user_request = mongoose.model('user_request');
 var passport = require('passport');
-var account = require('../models/account');
-var user_request = require('../models/user_request');
 var util = require('util');
+
 
 var time_shift = function(time_oringinal, time_delta) {
     return new Date(time_oringinal.getTime() + time_delta);
