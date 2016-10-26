@@ -52,7 +52,7 @@ router.post('/request', function(req, res) {
     }
     var start_time = new Date(req.body.start_time);
     var duration = parseInt(req.body.duration) * 3600;
-    var end_time = myutils.time_shift(start_time, duration);
+    var end_time = time_shift(start_time, duration);
     var gpu = parseInt(req.body.gpu);
     var request = new user_request({ 
         username: req.user, 
