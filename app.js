@@ -43,7 +43,7 @@ passport.serializeUser(account.serializeUser());
 passport.deserializeUser(account.deserializeUser());
 
 // user_request config
-var user_request = require('./model/db.js');
+// var user_request = require('./model/db.js');
 
 // mongoose
 mongoose.connect('mongodb://localhost/orcs_db');

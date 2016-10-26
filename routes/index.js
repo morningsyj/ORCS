@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var account = mongoose.model('user');
-var user_request = mongoose.model('user_request');
+var account = require('../models/account');
+var user_request = require('../models/user_request')
 var passport = require('passport');
 var util = require('util');
 
@@ -52,6 +52,7 @@ router.post('/request', function(req, res) {
     if (req.user === undefined) {
         res.send("unautherized request!");
     }
+    console.log(req.user);
     var start_time = new Date(req.body.start_time);
     var duration = parseInt(req.body.duration) * 3600;
     var end_time = time_shift(start_time, duration);
@@ -76,7 +77,7 @@ router.get('/ping', function(req, res){
     res.status(200).send("pong!");
 });
 
-router.get('/request', function(req, res){
+router.get('/unlock', function(req, res){
     console.log(req.user);
     if (req.user !== undefined) {
         var exec = require('child_process').exec;
