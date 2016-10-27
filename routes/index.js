@@ -191,7 +191,7 @@ router.post('/request', function(req, res) {
                 console.log(request.toString());
                 return res.send(err);
             }
-            res.redirect('/');
+            res.send('request success!\nwait for 10 seconds and you will be able to access the server!')
         });
     });
 });

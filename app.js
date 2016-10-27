@@ -79,5 +79,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var check_lock = require('./check_lock');
+
+var check_lock_timer = function() {
+  check_lock();
+  setTimeout(check_lock_timer, 10000);
+}
+
+check_lock_timer();
+
 
 module.exports = app;
