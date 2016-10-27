@@ -10,5 +10,9 @@ html
     script(type="text/javascript", src="./moment.min.js")
     script(type="text/javascript", src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
     script(type="text/javascript", src="./bootstrap-datetimepicker.min.js")
+    script.
+      $(document).ready(function(){
+        $('[data-toggle="popover"]').popover(); 
+      });
   body
     block content

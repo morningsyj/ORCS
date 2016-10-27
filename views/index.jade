@@ -3,25 +3,20 @@ extends layout
 block content
   h1 MCL ORCS
   p.lead Online Resources Control System for Multimedia Communication Lab
+  br
+  a(href="/query") Query
+  br
   if (!user)
     a(href="/login") Login
     br
     a(href="/register") Register
+    br
   if (user)
     p You are currently logged in as #{user.username}
-    p Your previous usage:
-    p 10-20-2016 Thursday 09:00pm to 10-20-2016 Thursday 10:00pm
-    p 10-20-2016 Thursday 10:00pm to 10-20-2016 Thursday 11:00pm
-    p 10-20-2016 Thursday 11:00pm to 10-21-2016 Friday 00:00am
-    p 10-21-2016 Friday 00:00am to 10-21-2016 Friday 01:00am
-    p 10-21-2016 Friday 01:00am to 10-21-2016 Friday 02:00am
-    p 10-21-2016 Friday 02:00am to 10-21-2016 Friday 03:00am
-    p 10-21-2016 Friday 03:00am to 10-21-2016 Friday 04:00am
-    p 10-21-2016 Friday 04:00am to 10-21-2016 Friday 05:00am
     a(href="/logout") Logout
     br
     a(href="/request") Request
-    p Successful Request:
-    p From 10-21-2016 Friday 08:00pm to 10-23-2016 Sunday 08:00am
-    p Assigned GPU: GPU-0
+    br
+    a(href="/unlock") Unlock
+    br
     a(href="/yield") Yield

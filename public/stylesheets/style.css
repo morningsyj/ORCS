@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.custom {
+    width: 30px !important;
+    padding-left: 3px !important;
+}
