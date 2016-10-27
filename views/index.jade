@@ -11,5 +11,8 @@ block content
   if (user)
     p You are currently logged in as #{user.username}
     a(href="/logout") Logout
+    if (user === 'yeji')
+      br
+      a(href="/register") Register
     br
-    a(href="/register") Register
+    a(href="/changepassword") Change Password

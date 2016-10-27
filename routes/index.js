@@ -34,6 +34,32 @@ router.post('/register', function(req, res) {
     });
 });
 
+router.get('/changepassword', function(req, res) {
+    res.render('changepassword', { });
+});
+
+router.post('/changepassword', function(req, res) {
+    if (req.user === undefined) {
+        return res.send('Unautherized access!\nPlease login!');
+    }
+    if (req.body.password !== req.body.password2) {
+        return res.send('Two password should be the same!');
+    }
+    req.user.setPassword(req.body.password, function(err, user) {
+        if (err) {
+            return res.send(err);
+        }
+
+        user.save(function(err) {
+            if (err) {
+                return res.send(err);
+            }
+            console.log('change password success!');
+            res.redirect('/');
+        }); 
+    });
+});
+
 router.get('/login', function(req, res) {
     res.render('login', { user : req.user });
 });
@@ -131,7 +157,9 @@ var check_available = function(request, cb) {
         cb('GPU should be 0 to 7!', request);
     else if (request.duration <= 0)
         cb('start time should be before end time!', request);
-    else {
+    else if (request.duration > 3 * 24 * 3600 * 1000) {
+        cb('request duration should be no more than 3 days!', request);
+    } else {
         console.log('check:');
         console.log(request.toString());
         user_request.find({

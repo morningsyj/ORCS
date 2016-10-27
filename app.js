@@ -83,7 +83,7 @@ var check_lock = require('./check_lock');
 
 var check_lock_timer = function() {
   check_lock();
-  setTimeout(check_lock_timer, 10000);
+  setTimeout(check_lock_timer, 1800 * 1000);
 }
 
 check_lock_timer();
