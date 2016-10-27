@@ -61,7 +61,7 @@ var get_active_users = function(req, res, next) {
     user_request.aggregate(
         [
             {
-                '$match': {'start_time': {'$gte': ltime.toDate()},  'end_time': {'$lte': rtime.toDate()}}
+                '$match': {'start_time': {'$lte': rtime.toDate()},  'end_time': {'$gte': ltime.toDate()}}
             },
             {
                 '$sort': {'username': 1}
