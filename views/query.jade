@@ -55,8 +55,17 @@ block content
       .row
         .col-sm-1
           p  
-        .col-sm-10.text-center
-          p #{date}
+        .col-sm-3.text-right
+          span
+            form(role='form', action="/query", method="get")
+              input(type='text', name='date', value='#{date_l}', style='display:none')
+              button.but.btn-info(type='submit') Prev
+        .col-sm-4.text-center
+            p #{date}
+        .col-sm-3.text-left
+            form(role='form', action="/query", method="get")
+              input(type='text', name='date', value='#{date_r}', style='display:none')
+              button.but.btn-info(type='submit') Next
       .row
         .col-sm-1
           p  

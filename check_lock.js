@@ -27,7 +27,7 @@ var check_lock = function(user) {
                 for (i in result)
                     check_lock(result[i].username);
             }
-        })
+        });
     } else {
         if (user === 'yeji')
             return ;

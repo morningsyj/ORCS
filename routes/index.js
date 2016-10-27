@@ -34,6 +34,17 @@ router.post('/register', function(req, res) {
     });
 });
 
+var compute_priority = require('../compute_priority');
+
+router.get('/priority', function(req, res) {
+    compute_priority(function(err, result) {
+        if (err)
+            res.send(err);
+        else
+            res.send(result.toString());
+    });
+});
+
 router.get('/changepassword', function(req, res) {
     res.render('changepassword', { });
 });
@@ -144,8 +155,20 @@ router.get('/query', get_active_users, function(req, res) {
             }
         }
     }
+
+    var ltime_minus1 = new moment(ltime);
+    var ltime_plus1 = new moment(ltime);
+    ltime_minus1.subtract('day', 1);
+    ltime_plus1.add('day', 1);
     
-    res.render('query', {'user': req.user, 'date': ltime.format('MM-DD-YYYY'), 'result': result});
+    res.render('query', 
+    {
+        'user': req.user, 
+        'date': ltime.format('MM-DD-YYYY'), 
+        'date_l': ltime_minus1.format('MM-DD-YYYY'), 
+        'date_r': ltime_plus1.format('MM-DD-YYYY'), 
+        'result': result
+    });
 });
 
 router.get('/request', function(req, res) {
@@ -162,6 +185,7 @@ var check_available = function(request, cb) {
     } else {
         console.log('check:');
         console.log(request.toString());
+        // check concflict in one GPU
         user_request.find({
             'start_time': {'$lte': request.end_time},
             'end_time': {'$gte': request.start_time},
@@ -170,14 +194,35 @@ var check_available = function(request, cb) {
             console.log('result:');
             console.log(result);
             if (err)
-                console.log(err);
+                cb(err, request);
             else {
                 if (result.length > 0) {
                     console.log('conflict!');
                     console.log(result.toString());
-                    cb('request conflict!', result);
-                } else
-                    cb('', request);
+                    cb('request conflict!', request);
+                } else {
+                    // check if one user is using more than 2 GPUs
+                    console.log('check 2:');
+                    console.log(request.toString());
+                    user_request.find({
+                        'username': request.username,
+                        'start_time': {'$lte': request.end_time},
+                        'end_time': {'$gte': request.start_time},
+                    }, function (err, result) {
+                        if (err)
+                            cb(err, request);
+                        else {
+                            console.log('check 2 result:');
+                            console.log(result.toString());
+                            if (result.length > 1) {
+                                console.log('conflict 2!');
+                                cb('request too much GPUs!', request);
+                            } else {
+                                cb('', request);
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -222,7 +267,7 @@ router.post('/request', function(req, res) {
                 console.log(request.toString());
                 return res.send(err);
             }
-            res.send('request success!\nwait for 10 seconds and you will be able to access the server!')
+            res.send('request success! <br /> wait for 10 seconds and you will be able to access the server! <br /> <a href="/"> Return </a>')
         });
     });
 });
