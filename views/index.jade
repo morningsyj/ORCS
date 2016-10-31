@@ -13,7 +13,7 @@ block content
   if (user)
     p You are currently logged in as #{user.username}
     a(href="/logout") Logout
-    if (user === 'yeji')
+    if (user.username === 'yeji')
       br
       a(href="/register") Register
     br
