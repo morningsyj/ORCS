@@ -4,6 +4,10 @@ var user_request = require('./models/user_request');
 var util = require('util');
 
 var change_lock = function(user, todo) {
+    console.log('change user:');
+    console.log(user);
+    console.log(typeof user);
+    console.log(user === 'yeji');
     if (user === 'yeji')
         return ;
     var exec = require('child_process').exec;
