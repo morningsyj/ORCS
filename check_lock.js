@@ -4,6 +4,8 @@ var user_request = require('./models/user_request');
 var util = require('util');
 
 var change_lock = function(user, todo) {
+    if (user === 'yeji')
+        return ;
     var exec = require('child_process').exec;
     // var cmd = util.format('echo \"sudo ./scripts/%s.sh %s\"', todo, user);
     var cmd = util.format('sudo ./scripts/%s.sh %s', todo, user);
@@ -30,8 +32,6 @@ var check_lock = function(user) {
             }
         });
     } else {
-        if (user.username === 'yeji')
-            return ;
         console.log('try username:');
         console.log(user);
         user_request.find({'username': user, 'start_time': {'$lte': new Date()}, 'end_time': {'$gte': new Date()}}, function(err, result) {
