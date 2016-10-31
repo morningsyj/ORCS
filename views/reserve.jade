@@ -1,0 +1,86 @@
+extends layout
+
+block content
+  .container
+    h1 Reserve Page
+    p.lead Say something worthwhile here.
+    br
+    a(href='/') Return
+    br
+    .container
+      .row
+        .col-sm-4
+          form(role='form', action="/query", method="get")
+            .form-group
+              span#datetimepicker1.input-group.date
+                input.form-control(type='text', name="date", placeholder='Choose Query Date')
+                .input-group-addon
+                  span.glyphicon.glyphicon-calendar
+            script(type="text/javascript").
+              $(function () {
+                $('#datetimepicker1').datetimepicker();
+              });
+            button.btn.btn-default(type='submit') Submit  
+        if user
+          .col-sm-4
+            form(role='form', action="/request", method="post")
+              .form-group
+                span#datetimepicker2.input-group.date
+                  input.form-control(type='text', name="start_time", placeholder='Choose Request Start Date and Time')
+                  .input-group-addon
+                    span.glyphicon.glyphicon-calendar
+              script(type="text/javascript").
+                $(function () {
+                  $('#datetimepicker2').datetimepicker();
+                });
+              .form-group
+                span#datetimepicker3.input-group.date
+                  input.form-control(type='text', name="end_time", placeholder='Choose Request End Date and Time')
+                  .input-group-addon
+                    span.glyphicon.glyphicon-calendar
+              .form-group
+                input.form-control(type='text', name="gpu", placeholder='Choose GPU (0 - 7)')
+              script(type="text/javascript").
+                $(function () {
+                  $('#datetimepicker3').datetimepicker();
+                });
+
+              button.btn.btn-default(type='submit') Submit 
+    .container
+      .row
+        .col-sm-1
+          p GPU
+        .col-sm-10.text-center
+          p USAGE
+      .row
+        .col-sm-1
+          p  
+        .col-sm-3.text-right
+          span
+            form(role='form', action="/query", method="get")
+              input(type='text', name='date', value='#{date_l}', style='display:none')
+              button.but.btn-info(type='submit') Prev
+        .col-sm-4.text-center
+            p #{date}
+        .col-sm-3.text-left
+            form(role='form', action="/query", method="get")
+              input(type='text', name='date', value='#{date_r}', style='display:none')
+              button.but.btn-info(type='submit') Next
+      .row
+        .col-sm-1
+          p  
+        .col-sm-10
+          - for (var x = 0; x < 24; ++x)
+            button.btn.custom #{x}
+      each item in result
+        .row
+          .col-sm-1
+            p #{item.gpu}
+          .col-sm-10
+            | <p>
+            each i in item.usage
+              if i
+                a.btn.btn-danger.custom(href="#", role="button", data-toggle="popover", title="Who is using", data-content="#{i}")
+              else
+                button.btn.btn-success.custom  
+            | </p>

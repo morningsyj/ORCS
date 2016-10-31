@@ -176,13 +176,21 @@ router.get('/request', function(req, res) {
 });
 
 var check_available = function(request, cb) {
+    var start_time = new moment(request.start_time);
+    var end_time = new moment(request.end_time);
+    console.log(end_time.startOf('week').toString());
+    console.log(moment().startOf('week').toString());
     if (!Number.isInteger(request.gpu) || request.gpu < 0 || request.gpu >= 8)
         cb('GPU should be 0 to 7!', request);
     else if (request.duration <= 0)
         cb('start time should be before end time!', request);
-    else if (request.duration > 3 * 24 * 3600 * 1000) {
+    else if (request.duration > 3 * 24 * 3600 * 1000)
         cb('request duration should be no more than 3 days!', request);
-    } else {
+    else if (request.start_time.getTime() < Date.now() - 3600 * 1000)
+        cb('request start time is in the past.', request);
+    else if (end_time.year() != moment().year() || end_time.startOf('week').toString() != moment().startOf('week').toString())
+        cb('request end time should be in this week.');
+    else {
         console.log('check:');
         console.log(request.toString());
         // check concflict in one GPU
@@ -267,6 +275,8 @@ router.post('/request', function(req, res) {
                 console.log(request.toString());
                 return res.send(err);
             }
+            var check_lock = require('../check_lock');
+            check_lock();
             res.send('request success! <br /> wait for 10 seconds and you will be able to access the server! <br /> <a href="/"> Return </a>')
         });
     });
