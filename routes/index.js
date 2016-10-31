@@ -6,13 +6,21 @@ var user_request = require('../models/user_request')
 var passport = require('passport');
 var util = require('util');
 var moment = require('moment');
+var check_lock = require('../check_lock');
 
 var time_shift = function(original_time, delta_time) {
     return new Date(original_time.getTime() + delta_time);
 }
 
 router.get('/', function (req, res) {
-    res.render('index', { user : req.user });
+    if (req.user !== undefined)
+    {
+        check_lock(req.user.username, function(result) {
+            res.render('index', { user : req.user, status: result });
+        });
+    } else {
+        res.render('index', { user : req.user, status: 0 });
+    }
 });
 
 router.get('/register', function(req, res) {
@@ -273,7 +281,6 @@ router.post('/request', function(req, res) {
                 console.log(request.toString());
                 return res.send(err);
             }
-            var check_lock = require('../check_lock');
             check_lock();
             res.send('request success! <br /> wait for 10 seconds and you will be able to access the server! <br /> <a href="/"> Return </a>')
         });

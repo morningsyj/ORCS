@@ -3,6 +3,14 @@ extends layout
 block content
   h1 MCL ORCS
   p.lead Online Resources Control System for Multimedia Communication Lab
+  .container
+    .row
+      .col-sm-4
+        h3 Guidelines
+        p 1. Login with your FIRST NAME.
+        p 2. Initial password is 123, change it as soon as possible.
+        p 3. Let Yeji know if you don't have an account in this system. (Email to yejishen at usc dot edu.)
+        p 4. As soon as you successfully
   br
   a(href="/query") Query
   br
@@ -12,6 +20,10 @@ block content
     a(href="/login") Login
   if (user)
     p You are currently logged in as #{user.username}
+    if (status)
+      br
+      p You now have access to the server!
+    br
     a(href="/logout") Logout
     if (user.username === 'yeji')
       br

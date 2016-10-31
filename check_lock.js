@@ -25,7 +25,7 @@ var change_lock = function(user, todo) {
     });
 }
 
-var check_lock = function(user) {
+var check_lock = function(user, cb) {
     if (user === undefined) {
         account.find({}, {'username': 1}, function(err, result) {
             if (err) {
@@ -48,9 +48,13 @@ var check_lock = function(user) {
                 {
                     console.log('success!');
                     change_lock(user, 'login');
+                    if (cb)
+                        cb(1);
                 } else {
                     console.log('fail!');
                     change_lock(user, 'logout');
+                    if (cb)
+                        cb(0);
                 }
             }
         })
