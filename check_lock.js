@@ -30,7 +30,7 @@ var check_lock = function(user) {
             }
         });
     } else {
-        if (user === 'yeji')
+        if (user.username === 'yeji')
             return ;
         console.log('try username:');
         console.log(user);
