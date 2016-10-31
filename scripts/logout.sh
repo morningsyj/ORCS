@@ -14,7 +14,7 @@ do
   #echo "original: ${res}"
 
   printf "Log user ${user} out:\n"
-  ps aux | egrep -e "^${user}" | while read -r line ; do
+  ps aux | egrep -e "^${user} " | while read -r line ; do
     printf "  ${line}\n"
     kill -9 $(echo ${line} | tr -s ' ' | cut -f 2 -d ' ')
   done
