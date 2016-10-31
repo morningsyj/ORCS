@@ -12,7 +12,7 @@ var change_lock = function(user, todo) {
         return ;
     var exec = require('child_process').exec;
     // var cmd = util.format('echo \"sudo ./scripts/%s.sh %s\"', todo, user);
-    var cmd = util.format('sudo ./scripts/%s.sh %s', todo, user);
+    var cmd = util.format('echo sudo ./scripts/%s.sh %s', todo, user);
 
     console.log('execute command: %s', cmd);
 
