@@ -3,7 +3,14 @@ extends layout
 block content
   .container
     h1 Query Page
-    p.lead Say something worthwhile here.
+    p.lead Pika-pika
+    .container
+      .row
+        .col-sm-10 
+          p 1. Red block means that period is currently occupied. (e.g. The red 15 and 16 in 10-31-2016 means that 10-31-2016 15:00 ~ 16:59 is occupied by user test.) Green block means available period.
+          p 2. Click on the red block to see who is using.
+        .col-sm-10 
+          p 3. You just need to choose the hour when you are to request, the start time will be automatically fixed at the starting moment of the hour you choose, and the end time will be fixed at the end of the hour.
     br
     a(href='/') Return
     br
