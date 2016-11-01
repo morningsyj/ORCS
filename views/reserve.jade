@@ -9,43 +9,7 @@ block content
     br
     .container
       .row
-        .col-sm-4
-          form(role='form', action="/query", method="get")
-            .form-group
-              span#datetimepicker1.input-group.date
-                input.form-control(type='text', name="date", placeholder='Choose Query Date')
-                .input-group-addon
-                  span.glyphicon.glyphicon-calendar
-            script(type="text/javascript").
-              $(function () {
-                $('#datetimepicker1').datetimepicker();
-              });
-            button.btn.btn-default(type='submit') Submit  
-        if user
-          .col-sm-4
-            form(role='form', action="/request", method="post")
-              .form-group
-                span#datetimepicker2.input-group.date
-                  input.form-control(type='text', name="start_time", placeholder='Choose Request Start Date and Time')
-                  .input-group-addon
-                    span.glyphicon.glyphicon-calendar
-              script(type="text/javascript").
-                $(function () {
-                  $('#datetimepicker2').datetimepicker();
-                });
-              .form-group
-                span#datetimepicker3.input-group.date
-                  input.form-control(type='text', name="end_time", placeholder='Choose Request End Date and Time')
-                  .input-group-addon
-                    span.glyphicon.glyphicon-calendar
-              .form-group
-                input.form-control(type='text', name="gpu", placeholder='Choose GPU (0 - 7)')
-              script(type="text/javascript").
-                $(function () {
-                  $('#datetimepicker3').datetimepicker();
-                });
-
-              button.btn.btn-default(type='submit') Submit 
+        
     .container
       .row
         .col-sm-1

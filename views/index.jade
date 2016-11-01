@@ -1,16 +1,9 @@
 extends layout
 
 block content
-  h1 MCL ORCS
-  p.lead Online Resources Control System for Multimedia Communication Lab
-  .container
-    .row
-      .col-sm-4
-        h3 Guidelines
-        p 1. Login with your FIRST NAME.
-        p 2. Initial password is 123, change it as soon as possible.
-        p 3. Let Yeji know if you don't have an account in this system. (Email to yejishen at usc dot edu.)
-        p 4. As soon as you successfully
+  h1 MCL Pikachu
+  p.lead Online Resources Control System for Multimedia Communication Lab (Version Alpha)      
+
   br
   a(href="/query") Query
   br
@@ -30,3 +23,20 @@ block content
       a(href="/register") Register
     br
     a(href="/changepassword") Change Password
+
+  .container
+    .row
+      .col-sm-10
+        h3 Guidelines
+        p 1. Login with your FIRST NAME.
+        p 2. Initial password is 123, change it as soon as possible.
+        p 3. Let Yeji know if you don't have an account in this system. (Email to yejishen at usc dot edu.)
+        p 4. You can see current usage on Query page. And then request the server as you like. A request should be less than 3 days. One can only occupy 1 GPU.
+        p 5. The request is based on whole hours, which means even though you can choose the start time and end time in minutes, they will be ignored by the system.
+        p 6. As soon as you have successfully requested the access of the server, you can ssh to the server (Its address is the same as this website). Your username is also your FIRST NAME, and your initial password is 123, PLEASE change it when you log in for the first time.
+        p 7. Please use your assigned GPU only. Current system has no control on which GPU you are using.
+        p 8. As the time requested is over, all your running process will be killed IMMEDIATELY. So save your work in time.
+        p 9. If you need to install new software, please contact Yeji.
+        p 10. For users that are not familiar with ssh-style of working, <a href="https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/"> this guide </a> on how to use Screen is highly recommended. Screen can allow you to run your program in background even when your ssh session is over.
+        p 11. Current system has no control on fairness.
+        p 12. The system is still on developing. The git is <a href="https://github.com/morningsyj/ORCS"> here </a>. If you have interest in contributing, please contact Yeji and he will give you a warmest hug!

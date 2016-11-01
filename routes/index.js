@@ -228,7 +228,7 @@ var check_available = function(request, cb) {
                         else {
                             console.log('check 2 result:');
                             console.log(result.toString());
-                            if (result.length > 1) {
+                            if (result.length > 0) {
                                 console.log('conflict 2!');
                                 cb('request too much GPUs!', request);
                             } else {
