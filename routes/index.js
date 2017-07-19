@@ -194,7 +194,7 @@ var check_available = function(request, cb) {
         cb('request duration should be no more than 3 days!', request);
     else if (request.start_time.getTime() < Date.now() - 3600 * 1000)
         cb('request start time is in the past.', request);
-    else if (end_time.year() != moment().year() || end_time.startOf('week').toString() != moment().startOf('week').toString())
+    else if (false && (end_time.year() != moment().year() || end_time.startOf('week').toString() != moment().startOf('week').toString()))
         cb('request end time should be in this week.');
     else {
         console.log('check:');
