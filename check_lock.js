@@ -4,17 +4,17 @@ var user_request = require('./models/user_request');
 var util = require('util');
 
 var change_lock = function(user, todo) {
-    console.log('change user:');
-    console.log(user);
-    console.log(typeof user);
-    console.log(user === 'yeji');
+    // console.log('change user:');
+    // console.log(user);
+    // console.log(typeof user);
+    // console.log(user === 'yeji');
     if (user === 'yeji')
         return ;
     var exec = require('child_process').exec;
     // var cmd = util.format('echo \"sudo ./scripts/%s.sh %s\"', todo, user);
     var cmd = util.format('sudo ./scripts/%s.sh %s', todo, user);
 
-    console.log('execute command: %s', cmd);
+    // console.log('execute command: %s', cmd);
 
     exec(cmd, function(err, stdout, stderr) {
         if (err) {
@@ -36,22 +36,22 @@ var check_lock = function(user, cb) {
             }
         });
     } else {
-        console.log('try username:');
-        console.log(user);
+        // console.log('try username:');
+        // console.log(user);
         user_request.find({'username': user, 'start_time': {'$lte': new Date()}, 'end_time': {'$gte': new Date()}}, function(err, result) {
-            console.log('result username:');
-            console.log(user);
+            // console.log('result username:');
+            // console.log(user);
             if (err) {
                 console.log(err)
             } else {
                 if (result.length > 0)
                 {
-                    console.log('success!');
+                    // console.log('success!');
                     change_lock(user, 'login');
                     if (cb)
                         cb(1);
                 } else {
-                    console.log('fail!');
+                    // console.log('fail!');
                     change_lock(user, 'logout');
                     if (cb)
                         cb(0);
